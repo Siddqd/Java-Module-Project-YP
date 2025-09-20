@@ -1,49 +1,50 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        final int maxSpeed = 250;
+        final int minSpeed = 0;
         Scanner scan = new Scanner(System.in);
-        ArrayList<Car> cars = new ArrayList<>();
         Leader lead = new Leader();
         int speed;
         String name;
-        for (int i = 1; i < 4; i++) {
-            System.out.print("\nВведите название "+i+" автомобиля: ");
+        {
+            System.out.print("\nВведите название " + 1 + " автомобиля: ");
             name = scan.next();
             do {
-                System.out.print("Введите скорость " + i + " автомобиля: ");
+                System.out.print("Введите скорость " + 1 + " автомобиля: ");
                 speed = scan.nextInt();
-                if (speed <= 0 || speed > 250) System.out.println("Скорость должна быть в пределах от 1 до 250 включительно");
+                if (speed <= minSpeed || speed > maxSpeed)
+                    System.out.println("Скорость должна быть в пределах от 1 до 250 включительно");
+            } while (speed <= minSpeed || speed > maxSpeed);
+            Car newCar = new Car(name, speed);
+            lead.checkChamp(newCar);
+        }
+        {
+            System.out.print("\nВведите название " + 2 + " автомобиля: ");
+            name = scan.next();
+            do {
+                System.out.print("Введите скорость " + 2 + " автомобиля: ");
+                speed = scan.nextInt();
+                if (speed <= 0 || speed > 250)
+                    System.out.println("Скорость должна быть в пределах от 1 до 250 включительно");
             } while (speed <= 0 || speed > 250);
-            cars.add(new Car(name,speed));
-            lead.checkChamp(cars.get(i-1));
+            Car newCar = new Car(name, speed);
+            lead.checkChamp(newCar);
+        }
+        {
+            System.out.print("\nВведите название " + 3 + " автомобиля: ");
+            name = scan.next();
+            do {
+                System.out.print("Введите скорость " + 3 + " автомобиля: ");
+                speed = scan.nextInt();
+                if (speed <= 0 || speed > 250)
+                    System.out.println("Скорость должна быть в пределах от 1 до 250 включительно");
+            } while (speed <= 0 || speed > 250);
+            Car newCar = new Car(name, speed);
+            lead.checkChamp(newCar);
         }
         System.out.println("\nСамая быстрая машина: "+lead.champName);
     }
 }
 
-class Car {
-    String name;
-    int speed;
-    public Car(String name, int speed) {
-        this.name = name;
-        this.speed = speed;
-    }
-}
-
-class Leader {
-    String champName;
-    int champLength;
-
-    public Leader() {
-        champLength = 0;
-    }
-
-    public void checkChamp(Car newCar) {
-        if(newCar.speed*24 > champLength) {
-            champLength = newCar.speed*24;
-            champName = newCar.name;
-        }
-    }
-}
